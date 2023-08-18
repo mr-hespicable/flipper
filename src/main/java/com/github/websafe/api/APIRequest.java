@@ -39,8 +39,6 @@ public class APIRequest {
             System.out.println("saying response:");
             Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText("Response: " + response));
 
-
-
             // Disconnect the connection
             connection.disconnect();
         } catch (Exception e) {

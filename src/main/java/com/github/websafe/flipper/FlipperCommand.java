@@ -46,8 +46,8 @@ public class FlipperCommand extends CommandBase {
             if (args.length >= 1) {
                 switch (args[0].toLowerCase()) {
                     case "start":
-                        if (!Objects.equals(args[2], "")) {
-                            declareShit(args[2]);
+                        if (!Objects.equals(args[1], "")) {
+                            declareShit(args[1]);
                         }
                         else {
                             Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText("no url provded"));
