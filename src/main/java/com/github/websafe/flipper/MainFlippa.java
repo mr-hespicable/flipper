@@ -1,7 +1,6 @@
 package com.github.websafe.flipper;
 
-import com.github.websafe.api.GetAPIKey;
-import net.minecraft.init.Blocks;
+import com.github.websafe.FlipperCommand;
 import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -11,6 +10,6 @@ public class MainFlippa {
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
         System.out.println("**********INITALIZING FLIPPER**********");
-        ClientCommandHandler.instance.registerCommand(new GetAPIKey());
+        ClientCommandHandler.instance.registerCommand(new FlipperCommand());
     }
 }
