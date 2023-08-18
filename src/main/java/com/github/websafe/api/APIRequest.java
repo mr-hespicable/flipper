@@ -1,6 +1,7 @@
 package com.github.websafe.api;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -35,13 +36,15 @@ public class APIRequest {
             }
             reader.close();
 
+
             // Print the response
-            System.out.println("saying response:");
-            Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText("Response: " + response));
+            String sponsive = response.toString();
+            Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(sponsive));
+            System.out.println("this" + sponsive);
 
             // Disconnect the connection
             connection.disconnect();
-        } catch (Exception e) {
+        } catch (IOException e) {
             logger.log(Level.SEVERE, "An error occurred", e);
         }
     }

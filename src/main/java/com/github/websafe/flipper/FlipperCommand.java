@@ -47,6 +47,7 @@ public class FlipperCommand extends CommandBase {
                 switch (args[0].toLowerCase()) {
                     case "start":
                         if (!Objects.equals(args[1], "")) {
+                            Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(args[1]));
                             declareShit(args[1]);
                         }
                         else {
