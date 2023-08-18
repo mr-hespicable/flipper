@@ -1,6 +1,7 @@
 package com.github.websafe.flipper;
 
 import com.github.websafe.api.APIRequest;
+import com.github.websafe.helper.MakeJSONObj;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
@@ -18,6 +19,7 @@ import java.util.logging.Logger;
 public class FlipperCommand extends CommandBase {
 
     private static final Logger logger = Logger.getLogger(FlipperCommand.class.getName());
+    String tempor = null;
 
     @Override
     public int getRequiredPermissionLevel() {
@@ -40,6 +42,7 @@ public class FlipperCommand extends CommandBase {
 
     @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
+
         new Thread(() -> {
             System.out.println(Arrays.toString(args));
 
@@ -48,10 +51,10 @@ public class FlipperCommand extends CommandBase {
                     case "start":
                         if (!Objects.equals(args[1], "")) {
                             Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(args[1]));
-                            declareShit(args[1]);
+                            tempor = getRequest(args[1], Boolean.FALSE);
                         }
                         else {
-                            Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText("no url provded"));
+                            Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText("no url provided"));
                         }
                         break;
                     case "stop":
@@ -62,14 +65,15 @@ public class FlipperCommand extends CommandBase {
 
     }
 
-    public void declareShit(String url) {
+    public String getRequest(String url, Boolean bln) {
+        String b = null;
         try {
             APIRequest g = new APIRequest();
             URL url1 = new URL(url);
-            g.getAuctions(url1);
-        }
-        catch (MalformedURLException e) {
+            b = g.getResponse(url1, bln);
+        } catch (MalformedURLException e) {
             logger.log(Level.SEVERE, "An error occurred", e);
         }
+        return b;
     }
 }

@@ -1,5 +1,6 @@
-package com.github.websafe.flipper;
+package com.github.websafe;
 
+import com.github.websafe.flipper.FlipperCommand;
 import com.github.websafe.proxy.CommonProxy;
 import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.fml.common.Mod;
@@ -34,3 +35,4 @@ public class MainFlippa {
 
     }
 }
+// /flipper start https://api.hypixel.net/resources/skyblock/election
