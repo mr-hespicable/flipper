@@ -1,4 +1,6 @@
-package com.github.websafe;
+package com.github.websafe.flipper;
+
+import com.github.websafe.api.APIRequest;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
@@ -6,10 +8,16 @@ import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.ChatComponentText;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class FlipperCommand extends CommandBase {
+
+    private static final Logger logger = Logger.getLogger(FlipperCommand.class.getName());
 
     @Override
     public int getRequiredPermissionLevel() {
@@ -18,7 +26,7 @@ public class FlipperCommand extends CommandBase {
 
     @Override
     public String getCommandName() {
-        return HelpMenu;
+        return "flipper";
     }
 
     public static final String HelpMenu =
@@ -27,7 +35,7 @@ public class FlipperCommand extends CommandBase {
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return "all flipper commands";
+        return HelpMenu;
     }
 
     @Override
@@ -38,12 +46,29 @@ public class FlipperCommand extends CommandBase {
             if (args.length >= 1) {
                 switch (args[0].toLowerCase()) {
                     case "start":
+                        if (!Objects.equals(args[2], "")) {
+                            declareShit(args[2]);
+                        }
+                        else {
+                            Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText("no url provded"));
+                        }
                         break;
                     case "stop":
-                        int x = 1;
                         break;
                 }
             }
         }).start();
+
+    }
+
+    public void declareShit(String url) {
+        try {
+            APIRequest g = new APIRequest();
+            URL url1 = new URL(url);
+            g.getAuctions(url1);
+        }
+        catch (MalformedURLException e) {
+            logger.log(Level.SEVERE, "An error occurred", e);
+        }
     }
 }

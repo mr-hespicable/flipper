@@ -23,4 +23,4 @@ plugins {
 }
 
 
-rootProject.name = "flipper"
+rootProject.name = "web"
