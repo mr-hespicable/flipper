@@ -8,11 +8,11 @@ plugins {
 
 //Constants:
 
-val baseGroup: String by project
+val baseGroup = "com.github.websafe.flipper"
 val mcVersion: String by project
 val version: String by project
 val mixinGroup = "$baseGroup.mixin"
-val modid: String by project
+val modid = "flipper"
 
 // Toolchains:
 java {
@@ -36,10 +36,7 @@ loom {
         // If you don't want mixins, remove this lines
         mixinConfig("mixins.$modid.json")
     }
-    // If you don't want mixins, remove these lines
-    mixin {
-        defaultRefmapName.set("mixins.$modid.refmap.json")
-    }
+    // If you don't want mixins, remove these lines THIS IS DONE. THERE IS NOTHING MISSING HERE.
 }
 
 sourceSets.main {
