@@ -1,6 +1,5 @@
 package com.github.websafe;
 
-import com.github.websafe.flipper.FlipperCommand;
 import com.github.websafe.proxy.CommonProxy;
 import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.fml.common.Mod;
@@ -9,7 +8,6 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
-import com.github.websafe.Reference;
 
 @Mod(modid = Reference.MODID, name=Reference.NAME, version=Reference.VERSION)
 public class MainFlippa {

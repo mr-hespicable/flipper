@@ -1,7 +1,6 @@
-package com.github.websafe.flipper;
+package com.github.websafe;
 
 import com.github.websafe.api.APIRequest;
-import com.github.websafe.helper.MakeJSONObj;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
@@ -72,7 +71,7 @@ public class FlipperCommand extends CommandBase {
             URL url1 = new URL(url);
             b = g.getResponse(url1, bln);
         } catch (MalformedURLException e) {
-            logger.log(Level.SEVERE, "An error occurred", e);
+            logger.log( Level.SEVERE, "An error occurred", e);
         }
         return b;
     }
