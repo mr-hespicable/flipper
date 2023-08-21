@@ -1,6 +1,7 @@
 package com.github.websafe;
 
-import com.github.websafe.api.APIRequest;
+import com.github.websafe.apiProcessing.APIRequest;
+import com.github.websafe.apiProcessing.GetInfo;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
@@ -18,7 +19,10 @@ import java.util.logging.Logger;
 public class FlipperCommand extends CommandBase {
 
     private static final Logger logger = Logger.getLogger(FlipperCommand.class.getName());
-    String tempor = null;
+    public static String tempor = null;
+    public static APIRequest api = new APIRequest();
+
+
 
     @Override
     public int getRequiredPermissionLevel() {
@@ -41,38 +45,27 @@ public class FlipperCommand extends CommandBase {
 
     @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
-
+        GetInfo xx = new GetInfo();
         new Thread(() -> {
             System.out.println(Arrays.toString(args));
 
             if (args.length >= 1) {
+                System.out.println(args[0]);
                 switch (args[0].toLowerCase()) {
                     case "start":
                         if (!Objects.equals(args[1], "")) {
                             Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(args[1]));
-                            tempor = getRequest(args[1], Boolean.FALSE);
+                            tempor = api.getResponse(args[1], Boolean.FALSE);
                         }
                         else {
                             Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText("no url provided"));
                         }
                         break;
                     case "stop":
+                        Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(GetInfo.ExString().toString()));
                         break;
                 }
             }
         }).start();
-
-    }
-
-    public String getRequest(String url, Boolean bln) {
-        String b = null;
-        try {
-            APIRequest g = new APIRequest();
-            URL url1 = new URL(url);
-            b = g.getResponse(url1, bln);
-        } catch (MalformedURLException e) {
-            logger.log( Level.SEVERE, "An error occurred", e);
-        }
-        return b;
     }
 }
