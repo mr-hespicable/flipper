@@ -41,7 +41,7 @@ public class FlipperCommand extends CommandBase {
     }
 
     @Override
-    public void processCommand(ICommandSender sender, String[] args) throws CommandException {
+    public void processCommand(ICommandSender sender, String[] args) {
         new Thread(() -> {
             System.out.println(Arrays.toString(args));
 
@@ -50,15 +50,15 @@ public class FlipperCommand extends CommandBase {
                 switch (args[0].toLowerCase()) {
                     case "start":
                         if (!Objects.equals(args[1], "")) {
-                            Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(args[1]));
+                            sender.addChatMessage(new ChatComponentText(args[1]));
                             tempor = api.getData(args[1], Boolean.FALSE);
                         }
                         else {
-                            Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText("no url provided"));
+                            sender.addChatMessage(new ChatComponentText("no url provided"));
                         }
                         break;
                     case "stop":
-                        Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(GetInfo.GetResponse("https://api.hypixel.net/resources/skyblock/election").toString()));
+                       sender.addChatMessage(new ChatComponentText(GetInfo.GetResponse("https://api.hypixel.net/resources/skyblock/election").toString()));
                         break;
                 }
             }
