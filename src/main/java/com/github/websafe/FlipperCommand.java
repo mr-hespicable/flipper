@@ -45,7 +45,6 @@ public class FlipperCommand extends CommandBase {
 
     @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
-        GetInfo xx = new GetInfo();
         new Thread(() -> {
             System.out.println(Arrays.toString(args));
 

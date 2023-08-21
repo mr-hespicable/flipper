@@ -6,8 +6,8 @@ import com.google.gson.Gson;
 
 public class JSONParser {
     public static Gson gson = new Gson();
-    public static JsonArray decode(String tj) {
-        JsonObject obj = new JsonObject();
-        return obj.getAsJsonArray("success");
+    public static String decode(String tj) {
+        JsonObject obj = gson.fromJson(tj, JsonObject.class);
+        return obj.getAsJsonObject("mayor").get("name").getAsString();
     }
 }
