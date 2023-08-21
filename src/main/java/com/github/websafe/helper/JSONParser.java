@@ -8,6 +8,6 @@ public class JSONParser {
     public static Gson gson = new Gson();
     public static JsonArray decode(String tj) {
         JsonObject obj = new JsonObject();
-        return obj.getAsJsonArray("success");
+        return obj.getAsJsonArray(tj);
     }
 }

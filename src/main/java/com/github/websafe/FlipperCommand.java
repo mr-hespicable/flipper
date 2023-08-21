@@ -9,11 +9,8 @@ import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.ChatComponentText;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Arrays;
 import java.util.Objects;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class FlipperCommand extends CommandBase {
@@ -45,7 +42,6 @@ public class FlipperCommand extends CommandBase {
 
     @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
-        GetInfo xx = new GetInfo();
         new Thread(() -> {
             System.out.println(Arrays.toString(args));
 
@@ -55,14 +51,14 @@ public class FlipperCommand extends CommandBase {
                     case "start":
                         if (!Objects.equals(args[1], "")) {
                             Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(args[1]));
-                            tempor = api.getResponse(args[1], Boolean.FALSE);
+                            tempor = api.getData(args[1], Boolean.FALSE);
                         }
                         else {
                             Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText("no url provided"));
                         }
                         break;
                     case "stop":
-                        Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(GetInfo.ExString().toString()));
+                        Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(GetInfo.GetResponse("https://api.hypixel.net/resources/skyblock/election").toString()));
                         break;
                 }
             }

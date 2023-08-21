@@ -14,12 +14,13 @@ public class APIRequest {
     private static final Logger logger = Logger.getLogger(APIRequest.class.getName());
     private static String sponse = null;
 
-    public String getResponse(String StringyURL, Boolean NeedsApiKey) {
+    public String getData(String StringyURL, Boolean NeedsApiKey) {
         try {
             URL url = new URL(StringyURL);
             try {
                 // Open a connection to the URL
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod(apikey);
                 System.out.println("connection to " + url + " opened.");
 
                 // Set the request method to GET
