@@ -1,5 +1,9 @@
 package com.github.websafe.flipper;
 
-public class GetAuctionInfo {
+import com.google.gson.JsonObject;
 
+public class GetAuctionInfo {
+    public void Median(JsonObject obj) {
+
+    }
 }

@@ -1,24 +1,15 @@
 package com.github.websafe;
 
 import com.github.websafe.apiProcessing.APIRequest;
-import com.github.websafe.apiProcessing.GetInfo;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
-import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.ChatComponentText;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Arrays;
 import java.util.Objects;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 public class FlipperCommand extends CommandBase {
 
-    private static final Logger logger = Logger.getLogger(FlipperCommand.class.getName());
     public static String tempor = null;
     public static APIRequest api = new APIRequest();
 
@@ -44,7 +35,7 @@ public class FlipperCommand extends CommandBase {
     }
 
     @Override
-    public void processCommand(ICommandSender sender, String[] args) throws CommandException {
+    public void processCommand(ICommandSender sender, String[] args){
         new Thread(() -> {
             System.out.println(Arrays.toString(args));
 
@@ -53,17 +44,19 @@ public class FlipperCommand extends CommandBase {
                 switch (args[0].toLowerCase()) {
                     case "start":
                         if (!Objects.equals(args[1], "")) {
-                            Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(args[1]));
-                            tempor = api.getResponse(args[1], Boolean.FALSE);
+                            sender.addChatMessage(new ChatComponentText(args[1]));
+                            tempor = api.getData(args[1], Boolean.FALSE);
                         }
                         else {
-                            Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText("no url provided"));
+                            sender.addChatMessage(new ChatComponentText("no url provided"));
                         }
                         break;
                     case "stop":
-                        Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(GetInfo.ExString().toString()));
+                        sender.addChatMessage(new ChatComponentText("bruh"));
                         break;
                 }
+            } else {
+                sender.addChatMessage(new ChatComponentText(getCommandUsage(sender)));
             }
         }).start();
     }

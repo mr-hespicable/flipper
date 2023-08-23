@@ -56,7 +56,7 @@ public class APIRequest {
                 System.out.println("shit.");
             }
         } catch (IOException e) {
-            logger.log(Level.SEVERE, "An error occurred", e);
+            logger.log(Level.SEVERE, "An error occurred ", e);
         }
         return sponse;
     }
