@@ -59,8 +59,9 @@ public class FlipperCommand extends CommandBase {
                         ah.getAuction();
                         break;
                     case "test":
+                        System.out.println(dec.itemBytes(temp));
                         break;
-                        //System.out.println(dec.itemBytes(temp));
+
                 }
             } else {
                 sender.addChatMessage(new ChatComponentText(getCommandUsage(sender)));
