@@ -44,6 +44,7 @@ public class FlipperCommand extends CommandBase {
             if (args.length >= 1) {
                 System.out.println(args[0]);
                 switch (args[0].toLowerCase()) {
+                    //TODO: add more commands and create default functionality which returns help msg
                     case "start":
                         if (!Objects.equals(args[1], "")) {
                             sender.addChatMessage(new ChatComponentText(args[1]));
@@ -54,7 +55,7 @@ public class FlipperCommand extends CommandBase {
                         }
                         break;
                     case "stop":
-                        sender.addChatMessage(new ChatComponentText(String.valueOf(ah.totalPages)));
+                        ah.GetAuction();
                         break;
                 }
             } else {

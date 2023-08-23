@@ -33,4 +33,4 @@ public class MainFlippa {
 
     }
 }
-// /flipper start https://api.hypixel.net/resources/skyblock/election
+// /flipper stop

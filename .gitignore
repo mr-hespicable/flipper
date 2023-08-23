@@ -3,4 +3,4 @@
 run/
 build/
 .gradle/
-/qodana.yaml
+testing_env/
