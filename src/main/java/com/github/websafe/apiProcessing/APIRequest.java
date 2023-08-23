@@ -1,11 +1,14 @@
 package com.github.websafe.apiProcessing;
 
+import org.apache.http.Header;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,7 +23,10 @@ public class APIRequest {
             try {
                 // Open a connection to the URL
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestMethod(apikey);
+                if (NeedsApiKey.equals(Boolean.TRUE)) {
+                    connection.setRequestMethod(apikey);
+                    System.out.println("apikey used, " + apikey);
+                }
                 System.out.println("connection to " + url + " opened.");
 
                 // Set the request method to GET
@@ -35,14 +41,10 @@ public class APIRequest {
                 String line;
                 StringBuilder response = new StringBuilder();
 
-
                 while ((line = reader.readLine()) != null) {
                     response.append(line);
                 }
                 reader.close();
-
-
-
 
                 /*Write response to console
                  * for some reason it doesn't write to chat so idfk whats going on there... maybe >>chat has a limit and it reaches it?<<
@@ -56,7 +58,7 @@ public class APIRequest {
                 System.out.println("shit.");
             }
         } catch (IOException e) {
-            logger.log(Level.SEVERE, "An error occurred", e);
+            logger.log(Level.SEVERE, "An error occurred ", e);
         }
         return sponse;
     }

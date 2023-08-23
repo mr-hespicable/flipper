@@ -1,23 +1,19 @@
 package com.github.websafe;
 
 import com.github.websafe.apiProcessing.APIRequest;
-import com.github.websafe.apiProcessing.GetInfo;
+import com.github.websafe.flipper.GetAuctionInfo;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
-import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.ChatComponentText;
 
 import java.util.Arrays;
 import java.util.Objects;
-import java.util.logging.Logger;
-
 public class FlipperCommand extends CommandBase {
 
-    private static final Logger logger = Logger.getLogger(FlipperCommand.class.getName());
     public static String tempor = null;
     public static APIRequest api = new APIRequest();
+    public static GetAuctionInfo ah = new GetAuctionInfo();
 
 
 
@@ -31,7 +27,7 @@ public class FlipperCommand extends CommandBase {
         return "flipper";
     }
 
-    public static final String HelpMenu =
+    private static final String HelpMenu =
             "Available arguments:\n"
             +"\n";
 
@@ -41,7 +37,7 @@ public class FlipperCommand extends CommandBase {
     }
 
     @Override
-    public void processCommand(ICommandSender sender, String[] args) {
+    public void processCommand(ICommandSender sender, String[] args){
         new Thread(() -> {
             System.out.println(Arrays.toString(args));
 
@@ -58,9 +54,11 @@ public class FlipperCommand extends CommandBase {
                         }
                         break;
                     case "stop":
-                       sender.addChatMessage(new ChatComponentText(GetInfo.GetResponse("https://api.hypixel.net/resources/skyblock/election").toString()));
+                        sender.addChatMessage(new ChatComponentText(String.valueOf(ah.totalPages)));
                         break;
                 }
+            } else {
+                sender.addChatMessage(new ChatComponentText(getCommandUsage(sender)));
             }
         }).start();
     }
