@@ -4,7 +4,6 @@ import com.github.websafe.apiProcessing.GetInfo;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
 import net.minecraft.client.Minecraft;
 
 import java.util.Objects;
