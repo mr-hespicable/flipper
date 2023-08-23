@@ -23,7 +23,7 @@ public class MainFlippa {
     @Mod.EventHandler
     public static void init(FMLInitializationEvent event) {
         if (event.getSide() == Side.CLIENT) {
-            System.out.println("**********INITALIZING FLIPPER**********");
+            System.out.println("**********INITIALIZING FLIPPER**********");
             ClientCommandHandler.instance.registerCommand(new FlipperCommand());
         }
     }

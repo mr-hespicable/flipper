@@ -24,11 +24,7 @@ loom {
     log4jConfigs.from(file("log4j2.xml"))
     launchConfigs {
         "client" {
-            // If you don't want mixins, remove these lines
-            property("mixin.debug", "true")
-            property("asmhelper.verbose", "true")
-            arg("--tweakClass", "org.spongepowered.asm.launch.MixinTweaker")
-            arg("--mixin", "mixins.$modid.json")
+            // If you don't want mixins, remove these lines THIS IS DONE THERE IS NOTHING MISSING HERE.
         }
     }
     forge {
@@ -48,8 +44,7 @@ sourceSets.main {
 repositories {
     mavenCentral()
     maven("https://repo.spongepowered.org/maven/")
-    // If you don't want to log in with your real minecraft account, remove this line
-    maven("https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1")
+    // If you don't want to log in with your real minecraft account, remove this line THIS IS DONE. THERE IS NOTHING MISSING HERE.
 }
 
 val shadowImpl: Configuration by configurations.creating {

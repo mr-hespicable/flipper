@@ -1,4 +1,4 @@
-package com.github.websafe.helper;
+package com.github.websafe;
 
 import com.google.gson.JsonObject;
 import com.google.gson.Gson;
