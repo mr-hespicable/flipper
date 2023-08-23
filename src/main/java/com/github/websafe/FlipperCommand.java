@@ -1,6 +1,7 @@
 package com.github.websafe;
 
 import com.github.websafe.apiProcessing.APIRequest;
+import com.github.websafe.flipper.GetAuctionInfo;
 
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
@@ -12,6 +13,7 @@ public class FlipperCommand extends CommandBase {
 
     public static String tempor = null;
     public static APIRequest api = new APIRequest();
+    public static GetAuctionInfo ah = new GetAuctionInfo();
 
 
 
@@ -25,7 +27,7 @@ public class FlipperCommand extends CommandBase {
         return "flipper";
     }
 
-    public static final String HelpMenu =
+    private static final String HelpMenu =
             "Available arguments:\n"
             +"\n";
 
@@ -52,7 +54,7 @@ public class FlipperCommand extends CommandBase {
                         }
                         break;
                     case "stop":
-                        sender.addChatMessage(new ChatComponentText("bruh"));
+                        sender.addChatMessage(new ChatComponentText(String.valueOf(ah.totalPages)));
                         break;
                 }
             } else {
