@@ -55,7 +55,7 @@ dependencies {
     minecraft("com.mojang:minecraft:1.8.9")
     mappings("de.oceanlabs.mcp:mcp_stable:22-1.8.9")
     forge("net.minecraftforge:forge:1.8.9-11.15.1.2318-1.8.9")
-    implementation("dev.dewy:nbt:1.5.1")
+    implementation("me.nullicorn:Nedit:2.2.0")
 
 
 

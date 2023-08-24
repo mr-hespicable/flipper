@@ -13,7 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class APIRequest {
-    private static final String apikey = "812beee0-95e9-487a-ba88-01596b087c8c";
+    //private static final String apikey = "812beee0-95e9-487a-ba88-01596b087c8c";
     private static final Logger logger = Logger.getLogger(APIRequest.class.getName());
     private static String sponse = null;
 
@@ -23,10 +23,12 @@ public class APIRequest {
             try {
                 // Open a connection to the URL
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                /* removed as apikey
                 if (NeedsApiKey.equals(Boolean.TRUE)) {
                     connection.setRequestMethod(apikey);
                     System.out.println("apikey used, " + apikey);
                 }
+                */
                 System.out.println("connection to " + url + " opened.");
 
                 // Set the request method to GET

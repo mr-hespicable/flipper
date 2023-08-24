@@ -23,7 +23,7 @@ public class GetAuctionInfo {
             for (int j = 0; j < totalAuctions.size(); j++ ) { //for each auction
                     JsonObject auction = totalAuctions.get(j).getAsJsonObject();
                     if (Objects.equals(check.isBin(auction), "true") && !Objects.equals(check.isSold(auction)[0], check.isSold(auction)[1])) {
-                        //TODO: make class to decode item bytes, maybe move isBin() and isSold() to a new helper class?
+                        //TODO: make class to decode item bytes
                     }
             }
         }

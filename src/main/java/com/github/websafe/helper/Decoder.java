@@ -1,23 +1,22 @@
 package com.github.websafe.helper;
 
-import dev.dewy.nbt.Nbt;
-import dev.dewy.nbt.api.Tag;
-import dev.dewy.nbt.tags.collection.CompoundTag;
+import me.nullicorn.nedit.NBTReader;
+import me.nullicorn.nedit.type.NBTCompound;
 
-import java.io.File;
+
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.Base64;
 
 public class Decoder {
-    public static final Nbt NBT = new Nbt();
-    private static final File JSON_FILE = new File("samples/sample.json");
+    public NBTCompound itemBytes(String encoded) throws IOException {
+        //decode encoded data.
+        byte[] decodedData = Base64.getDecoder().decode(encoded);
+        ByteArrayInputStream input = new ByteArrayInputStream(decodedData);
 
-    public CompoundTag itemBytes(String encoded) throws IOException {
-        try {
-            CompoundTag tag = NBT.fromBase64(encoded);
-            NBT.toJson(tag, JSON_FILE);
-            return tag;
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        //do nbt stuff
+        NBTCompound itemData = NBTReader.read(input);
+        return itemData; //TODO: add more ways to get the data off of itemBytes
+
     }
 }
