@@ -16,7 +16,8 @@ public class Decoder {
 
         //do nbt stuff
         NBTCompound itemData = NBTReader.read(input);
-        return itemData; //TODO: add more ways to get the data off of itemBytes
+        //System.out.println(itemData);
+        return itemData.getList("i").getCompound(0).getCompound("tag"); //TODO: add more ways to get the data off of itemBytes
 
     }
 }
