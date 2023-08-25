@@ -1,4 +1,4 @@
-package com.github.websafe;
+package com.websafe.flipper;
 
 import com.google.gson.JsonObject;
 import com.google.gson.Gson;

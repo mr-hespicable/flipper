@@ -1,4 +1,4 @@
-package com.github.websafe.helper;
+package com.websafe.flipper.helper;
 
 import me.nullicorn.nedit.NBTReader;
 import me.nullicorn.nedit.type.NBTCompound;

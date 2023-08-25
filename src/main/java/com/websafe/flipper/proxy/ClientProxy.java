@@ -1,4 +1,4 @@
-package com.github.websafe.proxy;
+package com.websafe.flipper.proxy;
 
 public class ClientProxy extends CommonProxy {
 

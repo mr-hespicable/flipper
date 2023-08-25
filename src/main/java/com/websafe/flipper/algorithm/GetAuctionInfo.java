@@ -1,15 +1,14 @@
-package com.github.websafe.flipper;
+package com.websafe.flipper.algorithm;
 
-import com.github.websafe.apiProcessing.GetInfo;
-import com.github.websafe.helper.Checker;
-import com.github.websafe.helper.Decoder;
+import com.websafe.flipper.apiProcessing.GetInfo;
+import com.websafe.flipper.helper.Checker;
+import com.websafe.flipper.helper.Decoder;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import me.nullicorn.nedit.type.NBTCompound;
 
 import java.io.IOException;
-import java.util.Objects;
 
 public class GetAuctionInfo {
     //declare Classes

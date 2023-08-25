@@ -1,8 +1,7 @@
-package com.github.websafe.flipper;
+package com.websafe.flipper.algorithm;
 
-import com.github.websafe.apiProcessing.GetInfo;
+import com.websafe.flipper.apiProcessing.GetInfo;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 
 public class GetVolume {
     private final GetInfo g = new GetInfo();

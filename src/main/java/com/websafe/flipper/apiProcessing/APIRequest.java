@@ -1,4 +1,4 @@
-package com.github.websafe.apiProcessing;
+package com.websafe.flipper.apiProcessing;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,13 +14,13 @@ public class APIRequest {
     private static final Logger logger = Logger.getLogger(APIRequest.class.getName());
     private static String sponse = null;
 
-    public String getData(String StringyURL, Boolean NeedsApiKey) {
+    public String getData(String StringyURL) {
         try {
             URL url = new URL(StringyURL);
             try {
                 // Open a connection to the URL
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                /* removed as apikey
+                /* removed as apikey not needed
                 if (NeedsApiKey.equals(Boolean.TRUE)) {
                     connection.setRequestMethod(apikey);
                     System.out.println("apikey used, " + apikey);

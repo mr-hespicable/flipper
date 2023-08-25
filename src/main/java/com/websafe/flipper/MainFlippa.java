@@ -1,6 +1,6 @@
-package com.github.websafe;
+package com.websafe.flipper;
 
-import com.github.websafe.proxy.CommonProxy;
+import com.websafe.flipper.proxy.CommonProxy;
 import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;

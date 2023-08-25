@@ -1,8 +1,7 @@
-package com.github.websafe;
+package com.websafe.flipper;
 
-import com.github.websafe.apiProcessing.APIRequest;
-import com.github.websafe.flipper.GetAuctionInfo;
-import com.github.websafe.helper.Decoder;
+import com.websafe.flipper.apiProcessing.APIRequest;
+import com.websafe.flipper.algorithm.GetAuctionInfo;
 
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
@@ -29,7 +28,7 @@ public class FlipperCommand extends CommandBase {
 
     private static final String HelpMenu =
             "Available arguments:\n"
-            +"\n";
+            +"start: Starts the flipper.\n";
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
@@ -48,7 +47,6 @@ public class FlipperCommand extends CommandBase {
                     case "start":
                         if (!Objects.equals(args[1], "")) {
                             sender.addChatMessage(new ChatComponentText(args[1]));
-                            tempor = api.getData(args[1], Boolean.FALSE);
                         }
                         else {
                             sender.addChatMessage(new ChatComponentText("no url provided"));

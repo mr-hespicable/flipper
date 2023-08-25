@@ -1,4 +1,4 @@
-package com.github.websafe;
+package com.websafe.flipper;
 
 public class Reference {
 
