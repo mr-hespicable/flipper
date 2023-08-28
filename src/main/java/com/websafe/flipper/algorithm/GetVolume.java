@@ -10,7 +10,11 @@ public class GetVolume {
         JsonArray obj = g.getResponse(SOLDurl).getAsJsonArray();
 
         for (int i = 0; i <= obj.size(); i++) {
-            //TODO: add way to find items that match specific descriptors
+            /*
+            TODO: add way to find items that match specific descriptors
+            Use com.websafe.flipper.templates
+            */
+
         }
     }
 }

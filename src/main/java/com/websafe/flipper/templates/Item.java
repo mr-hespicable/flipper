@@ -1,5 +1,5 @@
 package com.websafe.flipper.templates;
 
-public class Item {
+public interface Item {
     //TODO: add item descriptors (ways to find value)
 }

@@ -1,5 +1,6 @@
 package com.websafe.flipper.templates;
 
-public class Armor {
+public interface Armor {
     //TODO: add armor descriptors (ways to find value)
+    
 }

@@ -8,7 +8,7 @@ plugins {
 
 //Constants:
 
-val baseGroup = "com.github.websafe.flipper"
+val baseGroup = "com.websafe.flipper"
 val mcVersion: String by project
 val version: String by project
 val mixinGroup = "$baseGroup.mixin"

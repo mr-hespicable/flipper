@@ -14,10 +14,9 @@ public class Decoder {
         byte[] decodedData = Base64.getDecoder().decode(encoded);
         ByteArrayInputStream input = new ByteArrayInputStream(decodedData);
 
-        //do nbt stuff
+        //read input
         NBTCompound itemData = NBTReader.read(input);
-
-        return itemData.getList("i").getCompound(0).getCompound("tag").getCompound("ExtraAttributes");
+        return itemData.getList("i").getCompound(0)/*.getCompound("tag").getCompound("ExtraAttributes")*/; //TODO: DO NOT DO THIS.
 
     }
 }
