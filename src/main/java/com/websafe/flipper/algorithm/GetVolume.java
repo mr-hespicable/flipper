@@ -1,6 +1,7 @@
 package com.websafe.flipper.algorithm;
 
 import com.websafe.flipper.apiProcessing.GetInfo;
+
 import com.google.gson.JsonArray;
 
 public class GetVolume {
@@ -12,7 +13,6 @@ public class GetVolume {
         for (int i = 0; i <= obj.size(); i++) {
             /*
             TODO: add way to find items that match specific descriptors
-            Use com.websafe.flipper.templates
             */
 
         }

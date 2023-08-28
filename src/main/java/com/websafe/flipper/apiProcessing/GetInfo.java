@@ -5,8 +5,10 @@ import com.google.gson.JsonObject;
 
 public class GetInfo {
     private static final APIRequest api = new APIRequest();
+    private static final JSONParser dec = new JSONParser();
+
     public JsonObject getResponse(String url) {
         String jse = api.getData(url);
-        return JSONParser.decode(jse);
+        return dec.decode(jse);
     }
 }

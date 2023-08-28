@@ -16,7 +16,7 @@ public class Decoder {
 
         //read input
         NBTCompound itemData = NBTReader.read(input);
-        return itemData.getList("i").getCompound(0)/*.getCompound("tag").getCompound("ExtraAttributes")*/; //TODO: DO NOT DO THIS.
+        return itemData.getList("i").getCompound(0);
 
     }
 }

@@ -1,27 +1,39 @@
 package com.websafe.flipper.algorithm;
 
+import com.websafe.flipper.JSONParser;
+
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import me.nullicorn.nedit.type.NBTCompound;
-
-import java.util.Map;
+import java.util.Objects;
 
 public class GetItemInfo {
-    Integer isRecombed;
-    Integer isHPBed;
-    String isReforged;
-    Integer isStarred;
-    String itemID;
-    String isEnchanted;
+    private static Integer isRecombed;
+    private static Integer isHPBed;
+    private static String isReforged;
+    private static Integer isStarred;
+    private static String itemID;
+    private static JsonObject isEnchanted;
+
+    private static final Gson gson = new Gson();
+    private static final JSONParser dec = new JSONParser();
 
     public void ItemInfo(NBTCompound nbtInfo) {
-        //TODO: this class is basically just going to be a better layout of ExtraAttributes in item_bytes
         NBTCompound attr = nbtInfo.getCompound("tag").getCompound("ExtraAttributes"); //ExtraAttributes tag
         isRecombed = attr.getInt("rarity_upgrades", 0);
         isHPBed = attr.getInt("hot_potato_count", 0); //15 is fully maxed
         isReforged = attr.getString("modifier", null); //TODO: add null exception if item is not reforged
         isStarred = attr.getInt("upgrade_level", 0);
+        try {
+            isEnchanted = gson.fromJson(attr.getCompound("enchantments").toString(), JsonObject.class); //TODO: add null exception if item is not enchanted && make it a JSONobj.
+        } catch (NullPointerException e) {
+            isEnchanted = null;
+        }
+
         itemID = attr.getString("id");
-        isEnchanted = attr.getCompound("enchantments").toString(); //TODO: add null exception if item is not enchanted && make it a MAP.
+        if (Objects.equals(itemID, "PET")) {
+            itemID = "PET_" + (dec.decode(attr.getString("petInfo")).getAsJsonObject().get("type").getAsString());
+        }
     }
 
     public Integer getRecombValue() {
@@ -44,7 +56,7 @@ public class GetItemInfo {
         return itemID;
     }
 
-    public String getEnchantments() {
+    public JsonObject getEnchantments() {
         return isEnchanted;
     }
 }
