@@ -1,5 +1,6 @@
 package com.websafe.flipper.algorithm;
 
+import com.google.gson.JsonObject;
 import me.nullicorn.nedit.type.NBTCompound;
 
 import java.util.Map;
@@ -10,7 +11,7 @@ public class GetItemInfo {
     String isReforged;
     Integer isStarred;
     String itemID;
-    Map isEnchanted;
+    String isEnchanted;
 
     public void ItemInfo(NBTCompound nbtInfo) {
         //TODO: this class is basically just going to be a better layout of ExtraAttributes in item_bytes
@@ -20,7 +21,7 @@ public class GetItemInfo {
         isReforged = attr.getString("modifier", null); //TODO: add null exception if item is not reforged
         isStarred = attr.getInt("upgrade_level", 0);
         itemID = attr.getString("id");
-        isEnchanted = attr.getCompound("enchantments"); //TODO: add null exception if item is not enchanted && make it a MAP.
+        isEnchanted = attr.getCompound("enchantments").toString(); //TODO: add null exception if item is not enchanted && make it a MAP.
     }
 
     public Integer getRecombValue() {
@@ -43,7 +44,7 @@ public class GetItemInfo {
         return itemID;
     }
 
-    public Map getEnchantments() {
+    public String getEnchantments() {
         return isEnchanted;
     }
 }

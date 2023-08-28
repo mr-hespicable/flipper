@@ -9,6 +9,4 @@ public class GetValue {
     public void Value(NBTCompound nbtData) {
         info.ItemInfo(nbtData);
     }
-
-
 }

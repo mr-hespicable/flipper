@@ -34,7 +34,7 @@ public class GetAuctionInfo {
                 if (check.isBin(auction).equals(Boolean.TRUE) && check.isSold(auction).equals(Boolean.FALSE)) {
                     NBTCompound itemBytes = decode.itemBytes(auction.getAsJsonPrimitive("item_bytes").getAsString());
                     info.ItemInfo(itemBytes);
-                    System.out.println(info.getRecombValue());
+                    System.out.println(info.getEnchantments());
 
                 } /*else {
                     System.out.println("not true...");
