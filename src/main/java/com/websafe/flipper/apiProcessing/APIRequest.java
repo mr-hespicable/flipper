@@ -1,5 +1,7 @@
 package com.websafe.flipper.apiProcessing;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -19,22 +21,15 @@ public class APIRequest {
             URL url = new URL(StringyURL);
             try {
                 // Open a connection to the URL
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                /* removed as apikey not needed
-                if (NeedsApiKey.equals(Boolean.TRUE)) {
-                    connection.setRequestMethod(apikey);
-                    System.out.println("apikey used, " + apikey);
-                }
-                */
-                System.out.println("connection to " + url + " opened.");
+                HttpURLConnection connection = getConnection(url);
 
-                // Set the request method to GET
-                connection.setRequestMethod("GET");
+                System.out.println("connection to " + url + " opened.");
 
                 // Get the response code
                 int responseCode = connection.getResponseCode();
-                System.out.println("Response Code: " + responseCode);
-
+                if (responseCode != 200) {
+                    System.out.println("Response Code: " + responseCode);
+                }
                 // Read the response
                 BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 String line;
@@ -60,6 +55,21 @@ public class APIRequest {
             logger.log(Level.SEVERE, "An error occurred ", e);
         }
         return sponse;
+    }
+
+    @NotNull
+    private static HttpURLConnection getConnection(URL url) throws IOException {
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                /* removed as apikey not needed
+                if (NeedsApiKey.equals(Boolean.TRUE)) {
+                    connection.setRequestMethod(apikey);
+                    System.out.println("apikey used, " + apikey);
+                }
+                */
+
+        // Set the request method to GET
+        connection.setRequestMethod("GET");
+        return connection;
     }
 
 }

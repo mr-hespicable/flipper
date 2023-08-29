@@ -11,6 +11,7 @@ import com.google.gson.JsonObject;
 import me.nullicorn.nedit.type.NBTCompound;
 
 import java.io.IOException;
+import java.util.Date;
 
 public class GetAuctionInfo {
     //declare Classes
@@ -27,6 +28,8 @@ public class GetAuctionInfo {
     private final int pageCount = g.getResponse(AHurl).getAsJsonPrimitive( "totalPages").getAsInt();
 
     public void getAuction() throws IOException {
+        long startTime = System.currentTimeMillis();
+
         for (int i = 0; i < pageCount; i++) { //for each page
             String pageNum = AHurl + "?page=" + i;
             JsonArray totalAuctions = g.getResponse(pageNum).getAsJsonArray("auctions");
@@ -35,12 +38,23 @@ public class GetAuctionInfo {
                 if (check.isBin(auction).equals(Boolean.TRUE) && check.isSold(auction).equals(Boolean.FALSE)) {
                     NBTCompound nbtData = decode.itemBytes(auction.getAsJsonPrimitive("item_bytes").getAsString());
                     value.Value(nbtData);
-                    System.out.println(i+":"+j);
+
                 }
             }
         }
+        System.out.println(new Date().getTime() - startTime);
         System.out.println("DONE WITH THAT SHIT.");
     }
 
 
 }
+
+
+
+
+
+
+
+
+
+
