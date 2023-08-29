@@ -23,7 +23,7 @@ public class APIRequest {
                 // Open a connection to the URL
                 HttpURLConnection connection = getConnection(url);
 
-                System.out.println("connection to " + url + " opened.");
+                //System.out.println("connection to " + url + " opened.");
 
                 // Get the response code
                 int responseCode = connection.getResponseCode();

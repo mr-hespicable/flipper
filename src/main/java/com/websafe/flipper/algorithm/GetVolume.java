@@ -4,7 +4,7 @@ import com.websafe.flipper.apiProcessing.GetInfo;
 
 import com.google.gson.JsonArray;
 
-public class GetVolume {
+public class    GetVolume {
     private final GetInfo g = new GetInfo();
     public void getVol(String item_id) {
         String SOLDurl = "https://sky.coflnet.com/api/auctions/tag/" + item_id + "/sold";

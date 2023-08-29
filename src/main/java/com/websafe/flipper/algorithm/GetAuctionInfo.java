@@ -37,10 +37,12 @@ public class GetAuctionInfo {
                 JsonObject auction = totalAuctions.get(j).getAsJsonObject();
                 if (check.isBin(auction).equals(Boolean.TRUE) && check.isSold(auction).equals(Boolean.FALSE)) {
                     NBTCompound nbtData = decode.itemBytes(auction.getAsJsonPrimitive("item_bytes").getAsString());
-                    value.Value(nbtData);
+                    System.out.println(value.Value(nbtData));
+                    System.out.println(i + ":" + j);
 
                 }
             }
+            System.out.println(new Date().getTime() - startTime);
         }
         System.out.println(new Date().getTime() - startTime);
         System.out.println("DONE WITH THAT SHIT.");

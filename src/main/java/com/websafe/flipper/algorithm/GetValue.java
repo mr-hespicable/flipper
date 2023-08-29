@@ -1,6 +1,7 @@
 package com.websafe.flipper.algorithm;
 
 import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 import com.websafe.flipper.apiProcessing.GetInfo;
 import me.nullicorn.nedit.type.NBTCompound;
 
@@ -10,19 +11,22 @@ public class GetValue {
     public static final GetItemInfo info = new GetItemInfo();
     public static final GetInfo response = new GetInfo();
 
-    public void Value(NBTCompound nbtData) {
+    public Integer Value(NBTCompound nbtData) {
         info.ItemInfo(nbtData);
         int price = 0;
 
         //add recomb value
         if (info.getRecombValue() == 1) {
+            System.out.println("recomb");
             price += getBZPrice("RECOMBOBULATOR_3000");
         }
 
         //add potato book value
         if (info.getHPBCount() > 0 && info.getHPBCount() <= 10) {
+            System.out.println("hpb");
             price += getBZPrice("HOT_POTATO_BOOK") * (info.getHPBCount());
         } else if (info.getHPBCount() > 10) { //if fumings are present
+            System.out.println("fpb");
             price += getBZPrice("FUMING_POTATO_BOOK") * (info.getHPBCount() - 10) + (getBZPrice("HOT_POTATO_BOOK") * 10);
         }
 
@@ -32,25 +36,28 @@ public class GetValue {
 
         //get price of enchants
         if (info.getEnchantments() != null){
-
-
             for (Map.Entry<String, Double> entry: info.getEnchantments().entrySet()) {
                 String enchName = entry.getKey();
                 Double enchValue = entry.getValue();
                 String enchID = "ENCHANTMENT_" + enchName.toUpperCase() + "_" + enchValue.intValue();
-
-                int avgPrice = getBZPrice(enchID);
-                price += avgPrice;
-
+                if (response.getResponse("https://api.hypixel.net/skyblock/bazaar").getAsJsonObject("products").has(enchID)) {
+                    int avgPrice = getBZPrice(enchID);
+                    System.out.println("enchant");
+                    price += avgPrice;
+                } else {
+                    System.out.println(enchID);
+                }
             }
         }
-
-
+        return price;
     }
 
     private Integer getBZPrice(String itemID) {
         final JsonObject products = response.getResponse("https://api.hypixel.net/skyblock/bazaar").getAsJsonObject("products");
-        return products.getAsJsonObject(itemID).getAsJsonObject("quick_status").getAsJsonPrimitive("buyPrice").getAsInt();
+        JsonObject idInfo = products.getAsJsonObject(itemID);
+        JsonObject quickStatus = idInfo.getAsJsonObject("quick_status");
+        Integer buyPrice = quickStatus.getAsJsonPrimitive("buyPrice").getAsInt();
 
+        return buyPrice;//products.getAsJsonObject(itemID).getAsJsonObject("quick_status").getAsJsonPrimitive("buyPrice").getAsInt();
     }
 }
