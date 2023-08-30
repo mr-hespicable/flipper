@@ -26,8 +26,13 @@ public class GetAuctionInfo {
 
     //declare variables
     private final int pageCount = g.getResponse(AHurl).getAsJsonPrimitive( "totalPages").getAsInt();
+    long fdf;
 
-    public void getAuction() throws IOException {
+    public void getAuction(Long maxBudget) throws IOException {
+        if (maxBudget == null || maxBudget == 0) {
+            maxBudget = 2147483647L;
+        }
+
         long startTime = System.currentTimeMillis();
 
         for (int i = 0; i < pageCount; i++) { //for each page

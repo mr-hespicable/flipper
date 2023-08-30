@@ -59,7 +59,7 @@ public class FlipperCommand extends CommandBase {
                         break;
                     case "stop":
                         try {
-                            ah.getAuction();
+                            ah.getAuction(0);
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
@@ -68,7 +68,7 @@ public class FlipperCommand extends CommandBase {
                     case "set":
                         switch(args[1].toLowerCase()) {
                             case "budget":
-                                
+
                         }
                         break;
                 }
