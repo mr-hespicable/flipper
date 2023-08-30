@@ -65,11 +65,10 @@ public class FlipperCommand extends CommandBase {
                         }
                         break;
 
-                    case "test":
-                        try {
-                            sender.addChatMessage(new ChatComponentText(dec.itemBytes(temp).toString()));
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
+                    case "set":
+                        switch(args[1].toLowerCase()) {
+                            case "budget":
+                                
                         }
                         break;
                 }
