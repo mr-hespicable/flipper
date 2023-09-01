@@ -34,7 +34,7 @@ public class GetValue {
 
         //get reforge value:
         String[] normalReforges = {"epic", "fair", "fast", "gentle", "heroic", "legendary", "odd", "sharp", "spicy", "awkward", "deadly", "fine", "grand", "hasty", "neat", "rapid", "rich", "unreal", "clean", "fierce", "heavy", "light", "mythic", "pure", "titanic", "smart", "wise", "unyielding", "prospector", "excellent", "sturdy", "fortunate", "great", "rugged", "lush", "lumberjack", "double_bit", "robust", "zooming", "peasant", "green_thumb"};
-        Map<String, String> reforge_stones = new HashMap<>(); //TODO: make method initReforges and add ^ and > to the method.
+        Map<String, String> reforge_stones = new HashMap<>(); //TODO: make method initReforges and add ^ and < to the method.
 
         //get price of enchants
         if (info.getEnchantments() != null){
