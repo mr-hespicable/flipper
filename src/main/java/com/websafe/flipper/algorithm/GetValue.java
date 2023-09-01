@@ -1,5 +1,7 @@
 package com.websafe.flipper.algorithm;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.websafe.flipper.apiProcessing.GetInfo;
@@ -11,9 +13,14 @@ public class GetValue {
     public static final GetItemInfo info = new GetItemInfo();
     public static final GetInfo response = new GetInfo();
 
+
+
     private Map<String, Integer> enchantmentPrices = new HashMap<>(); //TODO: use this with initEnchantments
 
     public Integer Value(NBTCompound nbtData) {
+
+        initEnchantments();
+
         info.ItemInfo(nbtData);
         int price = 0;
 
@@ -61,7 +68,11 @@ public class GetValue {
     }
 
     private void initEnchantments() {
-        response.getResponse("https://api.hypixel.net/skyblock/bazaar").getAsJsonObject("products");
+            JsonObject thing = response.getResponse("https://api.hypixel.net/skyblock/bazaar").getAsJsonObject("products");
+            List<String> enchants = new ArrayList<String>();
+            for (int i = 0; i == thing.entrySet().size(); ) {
+
+            }
 
     }
 }

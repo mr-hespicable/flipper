@@ -27,7 +27,8 @@ public class GetAuctionInfo {
     private final String AHurl = "https://api.hypixel.net/skyblock/auctions";
 
     //declare variables
-    private final int pageCount = g.getResponse(AHurl).getAsJsonPrimitive( "totalPages").getAsInt();
+    private final JsonObject sponsor = g.getResponse(AHurl);
+    private final int pageCount = sponsor.getAsJsonPrimitive( "totalPages").getAsInt();
 
     public void getAuction() throws IOException {
         long startTime = System.currentTimeMillis();
