@@ -1,6 +1,7 @@
 package com.websafe.flipper.algorithm;
 
 import com.websafe.flipper.apiProcessing.GetInfo;
+import com.websafe.flipper.config.Config;
 import com.websafe.flipper.helper.Checker;
 import com.websafe.flipper.helper.Decoder;
 import com.websafe.flipper.algorithm.GetValue;
@@ -20,6 +21,7 @@ public class GetAuctionInfo {
     private static final Decoder decode = new Decoder();
     private static final GetItemInfo info = new GetItemInfo();
     private static final GetValue value = new GetValue();
+    private static final Config config = new Config();
 
     //declare url
     private final String AHurl = "https://api.hypixel.net/skyblock/auctions";
@@ -35,7 +37,7 @@ public class GetAuctionInfo {
             JsonArray totalAuctions = g.getResponse(pageNum).getAsJsonArray("auctions");
             for (int j = 0; j < totalAuctions.size(); j++ ) { //for each auction
                 JsonObject auction = totalAuctions.get(j).getAsJsonObject();
-                if (check.isBin(auction).equals(Boolean.TRUE) && check.isSold(auction).equals(Boolean.FALSE)) {
+                if (check.isBin(auction).equals(Boolean.TRUE) && check.isSold(auction).equals(Boolean.FALSE) && auction.getAsJsonPrimitive("starting_bid").getAsInt() <= config.getBudget()) {
                     NBTCompound nbtData = decode.itemBytes(auction.getAsJsonPrimitive("item_bytes").getAsString());
                     System.out.println(value.Value(nbtData));
                     System.out.println(i + ":" + j);

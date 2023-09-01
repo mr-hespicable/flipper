@@ -11,6 +11,8 @@ public class GetValue {
     public static final GetItemInfo info = new GetItemInfo();
     public static final GetInfo response = new GetInfo();
 
+    private Map<String, Integer> enchantmentPrices = new HashMap<>(); //TODO: use this with initEnchantments
+
     public Integer Value(NBTCompound nbtData) {
         info.ItemInfo(nbtData);
         int price = 0;
@@ -32,15 +34,16 @@ public class GetValue {
 
         //get reforge value:
         String[] normalReforges = {"epic", "fair", "fast", "gentle", "heroic", "legendary", "odd", "sharp", "spicy", "awkward", "deadly", "fine", "grand", "hasty", "neat", "rapid", "rich", "unreal", "clean", "fierce", "heavy", "light", "mythic", "pure", "titanic", "smart", "wise", "unyielding", "prospector", "excellent", "sturdy", "fortunate", "great", "rugged", "lush", "lumberjack", "double_bit", "robust", "zooming", "peasant", "green_thumb"};
-        Map<String, String> reforge_stones = new HashMap<>(); //TODO: make reforge stone price map
+        Map<String, String> reforge_stones = new HashMap<>(); //TODO: make method initReforges and add ^ and > to the method.
 
         //get price of enchants
         if (info.getEnchantments() != null){
-            for (Map.Entry<String, Double> entry: info.getEnchantments().entrySet()) {
+            for (Map.Entry<String, Double> entry : info.getEnchantments().entrySet()) {
                 String enchName = entry.getKey();
                 Double enchValue = entry.getValue();
                 String enchID = "ENCHANTMENT_" + enchName.toUpperCase() + "_" + enchValue.intValue();
-                if (response.getResponse("https://api.hypixel.net/skyblock/bazaar").getAsJsonObject("products").has(enchID)) {
+
+                if (response.getResponse("https://api.hypixel.net/skyblock/bazaar").getAsJsonObject("products").has(enchID)) { //TODO: fetch bazaar enchantment products outside of the loop
                     int avgPrice = getBZPrice(enchID);
                     System.out.println("enchant");
                     price += avgPrice;
@@ -54,10 +57,11 @@ public class GetValue {
 
     private Integer getBZPrice(String itemID) {
         final JsonObject products = response.getResponse("https://api.hypixel.net/skyblock/bazaar").getAsJsonObject("products");
-        JsonObject idInfo = products.getAsJsonObject(itemID);
-        JsonObject quickStatus = idInfo.getAsJsonObject("quick_status");
-        Integer buyPrice = quickStatus.getAsJsonPrimitive("buyPrice").getAsInt();
+        return products.getAsJsonObject(itemID).getAsJsonObject("quick_status").getAsJsonPrimitive("buyPrice").getAsInt();
+    }
 
-        return buyPrice;//products.getAsJsonObject(itemID).getAsJsonObject("quick_status").getAsJsonPrimitive("buyPrice").getAsInt();
+    private void initEnchantments() {
+        response.getResponse("https://api.hypixel.net/skyblock/bazaar").getAsJsonObject("products");
+
     }
 }
