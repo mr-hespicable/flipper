@@ -20,7 +20,7 @@ public class GetItemInfo {
     private static final Gson gson = new Gson();
     private static final JSONParser dec = new JSONParser();
 
-    public void ItemInfo(NBTCompound nbtInfo) {
+    public void ItemInfo(NBTCompound nbtInfo) { //1 api call when
         NBTCompound attr = nbtInfo.getCompound("tag").getCompound("ExtraAttributes"); //ExtraAttributes tag
         isRecombed = attr.getInt("rarity_upgrades", 0);
         isHPBed = attr.getInt("hot_potato_count", 0); //15 is fully maxed

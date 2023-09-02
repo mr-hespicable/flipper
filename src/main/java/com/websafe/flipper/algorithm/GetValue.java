@@ -1,9 +1,7 @@
 package com.websafe.flipper.algorithm;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
 import com.websafe.flipper.apiProcessing.GetInfo;
 import me.nullicorn.nedit.type.NBTCompound;
 
@@ -13,13 +11,13 @@ public class GetValue {
     public static final GetItemInfo info = new GetItemInfo();
     public static final GetInfo response = new GetInfo();
 
-
-
-    private Map<String, Integer> enchantmentPrices = new HashMap<>(); //TODO: use this with initEnchantments
+    private final JsonObject enchants = new JsonObject(); //TODO: use this with initEnchantments
+    private JsonObject bazaarProducts = new JsonObject();
 
     public Integer Value(NBTCompound nbtData) {
 
-        initEnchantments();
+        initBZ();
+        initEnchants();
 
         info.ItemInfo(nbtData);
         int price = 0;
@@ -45,34 +43,32 @@ public class GetValue {
 
         //get price of enchants
         if (info.getEnchantments() != null){
-            for (Map.Entry<String, Double> entry : info.getEnchantments().entrySet()) {
-                String enchName = entry.getKey();
-                Double enchValue = entry.getValue();
-                String enchID = "ENCHANTMENT_" + enchName.toUpperCase() + "_" + enchValue.intValue();
+            for (Map.Entry<String, Double> map: info.getEnchantments().entrySet()) {
 
-                if (response.getResponse("https://api.hypixel.net/skyblock/bazaar").getAsJsonObject("products").has(enchID)) { //TODO: fetch bazaar enchantment products outside of the loop
-                    int avgPrice = getBZPrice(enchID);
-                    System.out.println("enchant");
-                    price += avgPrice;
-                } else {
-                    System.out.println(enchID);
-                }
+                String itemEnchName = map.getKey().toUpperCase();
+                int itemEnchLvl = map.getValue().intValue();
+                String enchID = "ENCHANTMENT" + itemEnchName + "_" + itemEnchLvl;
+                if (enchID.equals("ENCHANTMENT_TELEKINESIS_1")) continue;
+                price += enchants.getAsJsonObject(enchID).getAsJsonObject("quick_status").get("buyPrice").getAsInt();
             }
         }
         return price;
     }
 
     private Integer getBZPrice(String itemID) {
-        final JsonObject products = response.getResponse("https://api.hypixel.net/skyblock/bazaar").getAsJsonObject("products");
-        return products.getAsJsonObject(itemID).getAsJsonObject("quick_status").getAsJsonPrimitive("buyPrice").getAsInt();
+        return bazaarProducts.getAsJsonObject(itemID).getAsJsonObject("quick_status").getAsJsonPrimitive("buyPrice").getAsInt();
     }
 
-    private void initEnchantments() {
-            JsonObject thing = response.getResponse("https://api.hypixel.net/skyblock/bazaar").getAsJsonObject("products");
-            List<String> enchants = new ArrayList<String>();
-            for (int i = 0; i == thing.entrySet().size(); ) {
-
+    private void initBZ() {
+        bazaarProducts = response.getResponse("https://api.hypixel.net/skyblock/bazaar").getAsJsonObject("products");
+    }
+    private void initEnchants() {
+        for (Map.Entry<String, JsonElement> enchant : bazaarProducts.entrySet()) {
+            if (enchant.getKey().contains("ENCHANTMENT_")) {
+                String enchName = enchant.getKey();
+                JsonElement enchValue = enchant.getValue();
+                enchants.add(enchName, enchValue);
             }
-
+        }
     }
 }
