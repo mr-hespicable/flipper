@@ -2,6 +2,7 @@ package com.websafe.flipper.algorithm;
 
 import com.google.gson.JsonElement;
 import com.sun.org.apache.xpath.internal.operations.Bool;
+import com.websafe.flipper.DebugTimer;
 import com.websafe.flipper.apiProcessing.GetInfo;
 import com.websafe.flipper.config.Config;
 import com.websafe.flipper.helper.Checker;
@@ -14,6 +15,7 @@ import com.google.gson.JsonObject;
 import me.nullicorn.nedit.type.NBTCompound;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -26,44 +28,52 @@ public class GetAuctionInfo {
     private static final GetItemInfo info = new GetItemInfo();
     private static final GetValue value = new GetValue();
     private static final Config config = new Config();
+    private static final DebugTimer timer = new DebugTimer();
 
     //declare url
     private final String AHurl = "https://api.hypixel.net/skyblock/auctions";
 
     //declare variables
     private final int pageCount = g.getResponse(AHurl).getAsJsonPrimitive( "totalPages").getAsInt();
+    List<Thread> threads = new ArrayList<>();
 
     private JsonArray currentPage = new JsonArray();
-    private final List<JsonObject> totalAuctions = new CopyOnWriteArrayList<>();
+    private final JsonArray totalAuctions = new JsonArray();
 
-    public void getAuction() throws IOException, InterruptedException {
-        System.out.println("start?");
-        new Thread(() -> { //get auctions and add them to the totalAuctions array.
-
-            System.out.println("starting.");
-            for (int p = 0; p < pageCount; p++) {
-                long startTime = System.currentTimeMillis();
-                currentPage = g.getResponse(AHurl + "?page=" + p).getAsJsonArray("auctions");
+    public void getAuction() throws IOException, InterruptedException { //api is called pageCount+1, threads run at once
+        System.out.println("starting");
+        for (int p = 0; p < pageCount; p++) {
+            timer.Start();
+            currentPage = g.getResponse(AHurl + "?page=" + p).getAsJsonArray("auctions");
+            Thread auctions = new Thread(() -> {
                 for (int i = 0; i < currentPage.size(); i++) {
-                    System.out.println(p + ":" + i);
+                    //System.out.println(p + ":" + i);
                     JsonObject auction = currentPage.get(i).getAsJsonObject();
                     if (check.isBin(auction).equals(Boolean.TRUE) && check.isSold(auction).equals(Boolean.FALSE) && checkConfig(auction)) {
-                        totalAuctions.add(auction);
+                        synchronized (totalAuctions) {
+                            totalAuctions.add(auction);
+                        }
                     }
                 }
-                //System.out.println(new Date().getTime() - startTime);
+            });
+            System.out.println(timer.Stop());
+            threads.add(auctions);
+            auctions.start();
+
+            for (Thread thread : threads) {
+                thread.join();
             }
-        }).start();
+        }
 
         //do things with the auctions
         Thread.sleep(500);
-        System.out.println("done");
+        timer.Start();
         for (JsonElement a : totalAuctions) {
-            System.out.println("1");
             JsonObject auction = a.getAsJsonObject();
             NBTCompound nbtData = decode.itemBytes(auction.getAsJsonPrimitive("item_bytes").getAsString());
             System.out.println(value.Value(nbtData));
         }
+        System.out.println(timer.Stop());
 
         /*long startTime = System.currentTimeMillis();
 
@@ -90,7 +100,8 @@ public class GetAuctionInfo {
         } else {
             return Boolean.FALSE;
         }
-    } //return truefalse if ahsettings are true
+    } //return true/false if ahsettings are true/false
+
 
 }
 
