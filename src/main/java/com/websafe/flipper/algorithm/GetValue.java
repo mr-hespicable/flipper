@@ -13,10 +13,14 @@ public class GetValue {
     public static final GetInfo response = new GetInfo();
 
     private final JsonObject enchants = new JsonObject(); //TODO: use this with initEnchantments
+    private final JsonObject reforge_stones = new JsonObject();
+
     private JsonObject bazaarProducts = new JsonObject();
     public int Value(NBTCompound nbtData) {
         initBZ();
+
         initEnchants();
+        initReforges();
 
         info.ItemInfo(nbtData);
         AtomicInteger price = new AtomicInteger();
@@ -39,12 +43,14 @@ public class GetValue {
                 price.addAndGet(getBZPrice("FUMING_POTATO_BOOK") * (info.getHPBCount() - 10) + (getBZPrice("HOT_POTATO_BOOK") * 10));
             }
         });
+
         //get reforge value:
-        String[] normalReforges = {"epic", "fair", "fast", "gentle", "heroic", "legendary", "odd", "sharp", "spicy", "awkward", "deadly", "fine", "grand", "hasty", "neat", "rapid", "rich", "unreal", "clean", "fierce", "heavy", "light", "mythic", "pure", "titanic", "smart", "wise", "unyielding", "prospector", "excellent", "sturdy", "fortunate", "great", "rugged", "lush", "lumberjack", "double_bit", "robust", "zooming", "peasant", "green_thumb"};
-        Map<String, String> reforge_stones = new HashMap<>(); //TODO: make method initReforges and add ^ and < to the method.
+        new Thread(() -> {
+            info.getReforge();
+            price.addAndGet(1);
+        });
 
         //get price of enchants
-
         new Thread(() -> {
             if (info.getEnchantments() != null) {
                 for (Map.Entry<String, Double> map: info.getEnchantments().entrySet()) {
@@ -61,12 +67,10 @@ public class GetValue {
         return price.get();
     }
 
-    private Integer getBZPrice(String itemID) {
-        return bazaarProducts.getAsJsonObject(itemID).getAsJsonObject("quick_status").getAsJsonPrimitive("buyPrice").getAsInt();
-    }
     private void initBZ() {
         bazaarProducts = response.getResponse("https://api.hypixel.net/skyblock/bazaar").getAsJsonObject("products");
     }
+
     private void initEnchants() {
         for (Map.Entry<String, JsonElement> enchant : bazaarProducts.entrySet()) {
             if (enchant.getKey().contains("ENCHANTMENT_")) {
@@ -75,5 +79,73 @@ public class GetValue {
                 enchants.add(enchName, enchValue);
             }
         }
+    }
+    private void initReforges() {
+        Map<String, String> stoneMap = new HashMap<String, String>() {{
+            put("CANDY_CORN", "candied");
+            put("DEEP_SEA_ORB", "submerged");
+            put("RARE_DIAMOND", "reinforced");
+            put("MOLTEN_CUBE", "cubic");
+            put("ENDSTONE_GEODE", "hyper");
+            put("PREMIUM_FLESH", "undead");
+            put("RED_NOSE", "ridiculous");
+            put("NECROMANCER_BROOCH", "necrotic");
+            put("DRAGON_SCALE", "spiked");
+            put("JADERALD", "jaded");
+            put("RED_SCARF", "loving");
+            put("DIAMOND_ATOM", "perfect");
+            put("DRAGON_HORN", "renowned");
+            put("GIANT_TOOTH", "giant");
+            put("SADAN_BROOCH", "empowered");
+            put("PRECURSOR_GEAR", "ancient");
+            put("SKYMART_BROCHURE", "bustling");
+            put("OVERGROWN_GRASS", "mossy");
+            put("MOIL_LOG", "moil");
+            put("BLESSED_FRUIT", "blessed");
+            put("TOIL_LOG", "toil");
+            put("GOLDEN_BALL", "bountiful");
+            put("LARGE_WALNUT", "earthy");
+            put("SALMON_OPAL", "headstrong");
+            put("OPTICAL_LENS", "precise");
+            put("SPIRIT_DECOY", "spiritual");
+            put("ONYX", "fruitful");
+            put("LAPIS_CRYSTAL", "magnetic");
+            put("DIAMONITE", "fleet");
+            put("PURE_MITHRIL", "mithraic");
+            put("ROCK_GEMSTONE", "auspicious");
+            put("REFINED_AMBER", "refined");
+            put("PETRIFIED_STARFALL", "stellar");
+            put("HOT_STUFF", "heated");
+            put("AMBER_MATERIAL", "ambered");
+            put("JERRY_STONE", "jerry");
+            put("DIRT_BOTTLE", "dirty");
+            put("DRAGON_CLAW", "fabled");
+            put("SUSPICIOUS_VIAL", "suspicious");
+            put("MIDAS_JEWEL", "gilded");
+            put("AOTE_STONE", "warped");
+            put("WITHER_BLOOD", "withered");
+            put("BULKY_STONE", "bulky");
+            put("ENTROPY_SUPPRESSOR", "coldfused");
+            put("SALT_CUBE", "salty");
+            put("RUSTY_ANCHOR", "treacherous");
+            put("HARDENED_WOOD", "stiff");
+            put("PITCHIN_KOI", "pitchin");
+            put("LUCKY_DICE", "lucky");
+            put("KUUDRA_MANDIBLE", "chomp");
+            put("BLAZE_WAX", "waxed");
+            put("METEOR_SHARD", "fortified");
+            put("SEARING_STONE", "strengthened");
+            put("SHINY_PRISM", "glistening");
+            put("FLOWERING_BOUQUET", "blooming");
+            put("BURROWING_SPORES", "rooted");
+
+        }}; //keys are bz ids, values are modifier: values.
+        for (Map.Entry<String, String> entry : stoneMap.entrySet()) {
+            reforge_stones.addProperty(entry.getKey(), entry.getValue());
+        }
+    }
+
+    private Integer getBZPrice(String itemID) {
+        return bazaarProducts.getAsJsonObject(itemID).getAsJsonObject("quick_status").getAsJsonPrimitive("sellPrice").getAsInt();
     }
 }

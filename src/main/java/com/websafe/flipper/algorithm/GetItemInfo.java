@@ -1,6 +1,6 @@
 package com.websafe.flipper.algorithm;
 
-import com.websafe.flipper.JSONParser;
+import com.websafe.flipper.helper.Parser;
 
 import com.google.gson.Gson;
 import me.nullicorn.nedit.type.NBTCompound;
@@ -18,17 +18,17 @@ public class GetItemInfo {
     private static Map<String, Double> isEnchanted = new HashMap<>();
 
     private static final Gson gson = new Gson();
-    private static final JSONParser dec = new JSONParser();
+    private static final Parser dec = new Parser();
 
     public void ItemInfo(NBTCompound nbtInfo) {
         NBTCompound attr = nbtInfo.getCompound("tag").getCompound("ExtraAttributes"); //ExtraAttributes tag
-        isRecombed = attr.getInt("rarity_upgrades", 0);
-        isHPBed = attr.getInt("hot_potato_count", 0); //15 is fully maxed
-        isReforged = attr.getString("modifier", null); //TODO: add null exception if item is not reforged
-        isStarred = attr.getInt("upgrade_level", 0);
+        isRecombed = attr.getInt("rarity_upgrades", 0); //recombs
+        isHPBed = attr.getInt("hot_potato_count", 0); //hpbs, 15 is fully maxed
+        isReforged = attr.getString("modifier", null);//reforge
+        isStarred = attr.getInt("upgrade_level", 0); //stars
 
         try {
-            isEnchanted = gson.fromJson(attr.getCompound("enchantments").toString(), HashMap.class); //TODO: add null exception if item is not enchanted && make it a JSONobj.
+            isEnchanted = gson.fromJson(attr.getCompound("enchantments").toString(), HashMap.class);
         } catch (NullPointerException e) {
             isEnchanted = null;
         }

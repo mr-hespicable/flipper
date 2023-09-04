@@ -22,12 +22,12 @@ public class GetAuctionInfo {
     private static final GetInfo g = new GetInfo();
     private static final Checker check = new Checker();
     private static final Decoder decode = new Decoder();
-    private static final GetItemInfo info = new GetItemInfo();
     private static final GetValue value = new GetValue();
     private static final Config config = new Config();
 
     //declare url
     private final String AHurl = "https://api.hypixel.net/skyblock/auctions";
+    private final String BZurl = "https://api.hypixel.net/skyblock/bazaar";
 
     //declare variables
     private final int pageCount = g.getResponse(AHurl).getAsJsonPrimitive( "totalPages").getAsInt();
@@ -36,7 +36,7 @@ public class GetAuctionInfo {
     private JsonArray currentPage = new JsonArray();
     private final JsonArray totalAuctions = new JsonArray();
 
-    public void getAuction() throws IOException, InterruptedException { //api is called pageCount+1, threads run at once
+    public void getAuction() throws IOException, InterruptedException { //api is fetched pageCount+1, threads run all at once
         System.out.println("starting");
         AtomicLong startTime = new AtomicLong(System.currentTimeMillis());
         for (int p = 0; p < pageCount; p++) {
@@ -65,18 +65,18 @@ public class GetAuctionInfo {
         Thread.sleep(500);
 
         ExecutorService threadPool = new ThreadPoolExecutor(
-                0, 10, 0L, TimeUnit.MILLISECONDS,
+                10, 10, 0L, TimeUnit.MILLISECONDS,
                 new LinkedBlockingQueue<>()
         );
 
         for (JsonElement a : totalAuctions) {
-            //threadPool.submit(() -> {
+            threadPool.submit(() -> {
                 startTime.set(System.currentTimeMillis());
                 JsonObject auction = a.getAsJsonObject();
                 NBTCompound nbtData = decode.itemBytes(auction.getAsJsonPrimitive("item_bytes").getAsString());
                 System.out.println(value.Value(nbtData));
                 System.out.println(System.currentTimeMillis() - startTime.get());
-            //});
+            });
 
         }
     }
@@ -88,7 +88,6 @@ public class GetAuctionInfo {
             return Boolean.FALSE;
         }
     } //return true/false if ahsettings are true/false
-
 
 }
 
