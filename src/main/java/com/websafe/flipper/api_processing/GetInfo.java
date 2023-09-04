@@ -1,4 +1,4 @@
-package com.websafe.flipper.apiProcessing;
+package com.websafe.flipper.api_processing;
 
 import com.websafe.flipper.helper.Parser;
 import com.google.gson.JsonObject;

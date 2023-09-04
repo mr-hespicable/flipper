@@ -2,7 +2,7 @@ package com.websafe.flipper.algorithm;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.websafe.flipper.apiProcessing.GetInfo;
+import com.websafe.flipper.api_processing.GetInfo;
 import me.nullicorn.nedit.type.NBTCompound;
 
 import java.util.*;

@@ -1,4 +1,4 @@
-package com.websafe.flipper.apiProcessing;
+package com.websafe.flipper.api_processing;
 
 import org.jetbrains.annotations.NotNull;
 

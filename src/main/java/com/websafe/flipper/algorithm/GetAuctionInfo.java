@@ -1,7 +1,7 @@
 package com.websafe.flipper.algorithm;
 
 import com.google.gson.JsonElement;
-import com.websafe.flipper.apiProcessing.GetInfo;
+import com.websafe.flipper.api_processing.GetInfo;
 import com.websafe.flipper.config.Config;
 import com.websafe.flipper.helper.Checker;
 import com.websafe.flipper.helper.Decoder;

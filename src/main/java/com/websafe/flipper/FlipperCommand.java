@@ -1,10 +1,9 @@
 package com.websafe.flipper;
 
-import com.websafe.flipper.apiProcessing.APIRequest;
+import com.websafe.flipper.api_processing.APIRequest;
 import com.websafe.flipper.algorithm.GetAuctionInfo;
 import com.websafe.flipper.config.Config;
 import com.websafe.flipper.helper.Decoder;
-import com.websafe.flipper.algorithm.GetItemInfo;
 
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;

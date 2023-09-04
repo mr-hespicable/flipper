@@ -1,6 +1,6 @@
 package com.websafe.flipper.algorithm;
 
-import com.websafe.flipper.apiProcessing.GetInfo;
+import com.websafe.flipper.api_processing.GetInfo;
 
 import com.google.gson.JsonArray;
 
